@@ -9,6 +9,7 @@ import { FC, PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { useQuestionData } from "./hooks";
 import { QuestionRenderer } from "./renderers";
 import { filterOrder, findQuestion } from "./utils";
+import { VerticalAnimation } from "./animations/Vertical";
 
 type FieldValues = Record<string, AnswerType>;
 
@@ -39,7 +40,10 @@ const FormWrapper: FC<PropsWithChildren> = ({ children }) => {
 };
 
 function FormContent() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [{ activeIndex, direction }, setActive] = useState({
+    activeIndex: 0,
+    direction: 0,
+  });
   const { setValue, getValues } = useFormContext();
   const order = useFilteredOrder();
   const { questions } = useQuestionData();
@@ -94,11 +98,14 @@ function FormContent() {
       <button
         type="button"
         onClick={() => {
-          setActiveIndex((prev) => {
-            if (prev === 0) {
-              return 0;
+          setActive((prev) => {
+            if (prev.activeIndex === 0) {
+              return prev;
             }
-            return prev - 1;
+            return {
+              activeIndex: prev.activeIndex - 1,
+              direction: -1,
+            };
           });
         }}
       >
@@ -107,18 +114,36 @@ function FormContent() {
       <button
         type="button"
         onClick={() => {
-          setActiveIndex((prev) => {
-            if (prev === order.length - 1) {
-              return order.length - 1;
+          setActive((prev) => {
+            if (prev.activeIndex === order.length - 1) {
+              return prev;
             }
-            return prev + 1;
+            return {
+              activeIndex: prev.activeIndex + 1,
+              direction: 1,
+            };
           });
         }}
       >
         next
       </button>
       <hr />
-      {schema && <QuestionRenderer name={schema.name} key={schema.name} />}
+
+      <div
+        style={{
+          height: 500,
+          backgroundColor: "lightgray",
+          margin: "auto",
+          position: "relative",
+        }}
+      >
+        <VerticalAnimation activeIndex={activeIndex} direction={direction}>
+          <div style={{ display: "flex" }}>
+            <p style={{ marginRight: 50 }}>{activeIndex + 1}</p>
+            <QuestionRenderer name={schema.name} key={schema.name} />
+          </div>
+        </VerticalAnimation>
+      </div>
     </div>
   );
 }
