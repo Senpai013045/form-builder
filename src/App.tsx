@@ -91,8 +91,6 @@ function FormContent() {
 
   return (
     <div>
-      {schema && <QuestionRenderer name={schema.name} key={schema.name} />}
-      <hr />
       <button
         type="button"
         onClick={() => {
@@ -119,6 +117,8 @@ function FormContent() {
       >
         next
       </button>
+      <hr />
+      {schema && <QuestionRenderer name={schema.name} key={schema.name} />}
     </div>
   );
 }
