@@ -1,19 +1,17 @@
-import { useQuestionData, useShouldRender } from "../hooks";
+import { useMemo } from "react";
+import { useQuestionData } from "../hooks";
 import { Choice, Question } from "../types";
-import { findQuestion, findSchema } from "../utils";
+import { findQuestion } from "../utils";
 import { MultiChoiceQuestionRenderer } from "./MultiChoice";
 import { SingleChoiceQuestionRenderer } from "./SingleChoice";
 import { TextQuestionRenderer } from "./Text";
 
 export const QuestionRenderer = ({ name }: { name: string }) => {
-  const { order, questions } = useQuestionData();
-  const question = findQuestion(questions, name);
-  const schema = findSchema(order, name);
-
-  const shouldRender = useShouldRender(schema?.conditions ?? []);
-  if (!shouldRender) {
-    return null;
-  }
+  const { questions } = useQuestionData();
+  const question = useMemo(
+    () => findQuestion(questions, name),
+    [questions, name]
+  );
 
   if (!question) {
     return null;

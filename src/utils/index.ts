@@ -1,32 +1,16 @@
 import { AnswerType, Operations, Order, Question, QuestionRelation } from "../types";
 
 
-const questionCache = new Map<string, Question>();
 export const findQuestion = (questions: Question[], name: string) => {
-    if (questionCache.has(name)) {
-        const cached = questionCache.get(name);
-        if (cached) {
-            return cached;
-        }
-    }
     const question = questions.find((q) => q.name === name);
     if (question) {
-        questionCache.set(name, question);
         return question;
     }
 };
 
-const schemaCache = new Map<string, QuestionRelation>();
 export const findSchema = (order: Order, name: string) => {
-    if (schemaCache.has(name)) {
-        const cached = schemaCache.get(name);
-        if (cached) {
-            return cached;
-        }
-    }
     const schema = order.find((q) => q.name === name);
     if (schema) {
-        schemaCache.set(name, schema);
         return schema;
     }
 };
