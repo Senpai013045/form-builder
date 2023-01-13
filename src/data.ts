@@ -46,6 +46,25 @@ export const questions: Question[] = [
         type: "text",
         title: "Who is your favorite basketball player?",
     },
+    {
+        name: "foodsYouLike",
+        type: "multipleChoice",
+        title: "What foods do you like?",
+        choices: [
+            {
+                label: "Pizza",
+                value: "pizza",
+            },
+            {
+                label: "Burger",
+                value: "burger",
+            },
+            {
+                label: "Pasta",
+                value: "pasta",
+            },
+        ],
+    }
 ];
 
 export const order: Order = [
@@ -90,4 +109,7 @@ export const order: Order = [
             },
         ],
     },
+    {
+        name: "foodsYouLike",
+    }
 ];
