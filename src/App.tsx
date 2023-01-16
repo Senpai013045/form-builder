@@ -1,18 +1,18 @@
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { AnswerType } from "./types";
-import { FC, PropsWithChildren, useEffect, useState } from "react";
-import { useFilteredQuestions, useQuestionData } from "./hooks";
-import { QuestionRenderer } from "./renderers";
-import { VerticalAnimation } from "./animations/Vertical";
+import {useForm, FormProvider, useFormContext} from "react-hook-form";
+import {AnswerType} from "./types";
+import {FC, PropsWithChildren, useEffect, useState} from "react";
+import {useFilteredQuestions, useQuestionData} from "./hooks";
+import {QuestionRenderer} from "./renderers";
+import {VerticalAnimation} from "./animations/Vertical";
 
 type FieldValues = Record<string, AnswerType>;
 
-const FormWrapper: FC<PropsWithChildren> = ({ children }) => {
+const FormWrapper: FC<PropsWithChildren> = ({children}) => {
   const form = useForm<FieldValues>();
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((values) => {
+        onSubmit={form.handleSubmit(values => {
           console.log(values);
         })}
       >
@@ -23,13 +23,13 @@ const FormWrapper: FC<PropsWithChildren> = ({ children }) => {
 };
 
 function FormContent() {
-  const [{ activeIndex, direction }, setActive] = useState({
+  const [{activeIndex, direction}, setActive] = useState({
     activeIndex: 0,
     direction: 0,
   });
-  const { setValue, getValues } = useFormContext();
+  const {setValue, getValues} = useFormContext();
   const filteredQuestions = useFilteredQuestions();
-  const { questions } = useQuestionData();
+  const {questions} = useQuestionData();
 
   const question = questions[activeIndex];
 
@@ -44,11 +44,7 @@ function FormContent() {
         if (pressedNumber >= 1 && pressedNumber <= question.choices.length) {
           const choice = question.choices[pressedNumber - 1];
           const rawValue = getValues(question.name);
-          const value = !rawValue
-            ? []
-            : typeof rawValue === "string"
-            ? [rawValue]
-            : rawValue;
+          const value = !rawValue ? [] : typeof rawValue === "string" ? [rawValue] : rawValue;
           if (value.includes(choice.value)) {
             setValue(
               question.name,
@@ -78,7 +74,7 @@ function FormContent() {
       <button
         type="button"
         onClick={() => {
-          setActive((prev) => {
+          setActive(prev => {
             if (prev.activeIndex === 0) {
               return prev;
             }
@@ -94,7 +90,7 @@ function FormContent() {
       <button
         type="button"
         onClick={() => {
-          setActive((prev) => {
+          setActive(prev => {
             if (prev.activeIndex === filteredQuestions.length - 1) {
               return prev;
             }
@@ -118,8 +114,8 @@ function FormContent() {
         }}
       >
         <VerticalAnimation activeIndex={activeIndex} direction={direction}>
-          <div style={{ display: "flex" }}>
-            <p style={{ marginRight: 50 }}>{activeIndex + 1}</p>
+          <div style={{display: "flex"}}>
+            <p style={{marginRight: 50}}>{activeIndex + 1}</p>
             <QuestionRenderer question={question} />
           </div>
         </VerticalAnimation>
