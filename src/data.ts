@@ -1,4 +1,4 @@
-import { Order, Question } from "./types";
+import { Question } from "./types";
 
 export const questions: Question[] = [
     {
@@ -25,6 +25,13 @@ export const questions: Question[] = [
         name: "favoriteFootballPlayer",
         type: "text",
         title: "Who is your favorite football player?",
+        conditions: [
+            {
+                valueOfField: "favoriteSport",
+                operation: "eq",
+                value: "football",
+            },
+        ],
     },
     {
         name: "barcaOrReal",
@@ -40,11 +47,30 @@ export const questions: Question[] = [
                 value: "realMadrid",
             },
         ],
+        conditions: [
+            {
+                valueOfField: "favoriteFootballPlayer",
+                operation: "in",
+                value: ["messi", "ronaldo"],
+            },
+            {
+                valueOfField: "favoriteSport",
+                operation: "eq",
+                value: "football",
+            },
+        ],
     },
     {
         name: "favoriteBasketballPlayer",
         type: "text",
         title: "Who is your favorite basketball player?",
+        conditions: [
+            {
+                valueOfField: "favoriteSport",
+                operation: "eq",
+                value: "basketball",
+            },
+        ],
     },
     {
         name: "foodsYouLike",
@@ -64,52 +90,5 @@ export const questions: Question[] = [
                 value: "pasta",
             },
         ],
-    }
-];
-
-export const order: Order = [
-    {
-        name: "name",
-    },
-    {
-        name: "favoriteSport",
-    },
-    {
-        name: "favoriteFootballPlayer",
-        conditions: [
-            {
-                valueOfField: "favoriteSport",
-                operation: "eq",
-                value: "football",
-            },
-        ],
-    },
-    {
-        name: "barcaOrReal",
-        conditions: [
-            {
-                valueOfField: "favoriteFootballPlayer",
-                operation: "in",
-                value: ["messi", "ronaldo"],
-            },
-            {
-                valueOfField: "favoriteSport",
-                operation: "eq",
-                value: "football",
-            },
-        ],
-    },
-    {
-        name: "favoriteBasketballPlayer",
-        conditions: [
-            {
-                valueOfField: "favoriteSport",
-                operation: "eq",
-                value: "basketball",
-            },
-        ],
-    },
-    {
-        name: "foodsYouLike",
     }
 ];

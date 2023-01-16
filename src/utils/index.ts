@@ -1,17 +1,9 @@
-import { AnswerType, Operations, Order, Question, QuestionRelation } from "../types";
-
+import { AnswerType, Operations, Question } from "../types";
 
 export const findQuestion = (questions: Question[], name: string) => {
     const question = questions.find((q) => q.name === name);
     if (question) {
         return question;
-    }
-};
-
-export const findSchema = (order: Order, name: string) => {
-    const schema = order.find((q) => q.name === name);
-    if (schema) {
-        return schema;
     }
 };
 
@@ -51,8 +43,8 @@ export const handleOperation = ({
     }
 };
 
-export const filterOrder = (order: Order, formValues: Record<string, AnswerType>) => {
-    return order.filter((question) => {
+export const filterQuestions = (questions: Question[], formValues: Record<string, AnswerType>) => {
+    return questions.filter((question) => {
         if (!question.conditions) {
             return true;
         }
