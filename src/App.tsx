@@ -70,7 +70,7 @@ function FormContent() {
   }, [question]);
 
   return (
-    <div>
+    <div data-testid="app">
       <button
         type="button"
         onClick={() => {
