@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { useWatch } from "react-hook-form";
-import { questions } from "./data";
-import { filterQuestions } from "./utils";
+import {useMemo} from "react";
+import {useWatch} from "react-hook-form";
+import {questions} from "./data";
+import {filterQuestions} from "./utils";
 
 export const useQuestionData = () => {
   return {
@@ -10,7 +10,7 @@ export const useQuestionData = () => {
 };
 
 export const useFilteredQuestions = () => {
-  const { questions } = useQuestionData();
+  const {questions} = useQuestionData();
   const watch = useWatch();
 
   const filteredQuestions = useMemo(() => {

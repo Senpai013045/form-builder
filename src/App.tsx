@@ -1,7 +1,7 @@
 import {useForm, FormProvider, useFormContext} from "react-hook-form";
 import {AnswerType} from "./types";
 import {FC, PropsWithChildren, useEffect, useState} from "react";
-import {useFilteredQuestions, useQuestionData} from "./hooks";
+import {useFilteredQuestions} from "./hooks";
 import {QuestionRenderer} from "./renderers";
 import {VerticalAnimation} from "./animations/Vertical";
 
@@ -29,9 +29,7 @@ function FormContent() {
   });
   const {setValue, getValues} = useFormContext();
   const filteredQuestions = useFilteredQuestions();
-  const {questions} = useQuestionData();
-
-  const question = questions[activeIndex];
+  const question = filteredQuestions[activeIndex];
 
   //keyboard interaction
   useEffect(() => {
